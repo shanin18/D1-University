@@ -1,6 +1,11 @@
 import { useEffect, useId, useRef, useState } from "react";
 import useEmblaCarousel from "embla-carousel-react";
+import logo from "./assets/logo.png";
+import eventPoster from "./assets/d1.png";
+import heroLogo from "./assets/logo-l.png";
+import star from "./assets/star.png";
 import { programs, stats, partners, events, testimonials, faqs } from "./data";
+import { ArrowUpRight, CalendarDays, MapPin, MoveUpRight } from "lucide-react";
 
 const Arrow = ({ className = "" }) => (
   <svg
@@ -113,26 +118,29 @@ function Header() {
     return () => window.removeEventListener("keydown", close);
   }, [open]);
   const links = [
-    ["Our purpose", "#about"],
-    ["Experiences", "#events"],
-    ["Our community", "#community"],
-    ["FAQs", "#faq"],
+    ["Events", "#events"],
+    ["Dates", "#dates"],
+    ["Roster Recruit", "#rr"],
+    ["Hall of Fame", "#hof"],
+    ["About", "#about"],
+    ["Contact", "#contact"],
   ];
   return (
-    <header className="relative z-20 border-b border-white/15 bg-ink text-white">
+    <header className="site-header relative z-20 border-b border-white/15 bg-ink text-white">
       <div className="container flex min-h-20 items-center justify-between gap-6">
         <a
           className="flex items-center gap-2"
           href="#home"
           aria-label="D1 University home"
         >
-          <span className="font-display text-4xl italic">
-            D1<span className="text-brand">.</span>
-          </span>
-          <span className="text-[10px] font-bold leading-tight tracking-widest">
-            UNIVERSITY
-            <br />
-            BUILT FOR MORE.
+          <img
+            src={logo}
+            alt="D1 University"
+            className="h-10 w-[46px] object-contain"
+          />
+
+          <span className="text-white font-semibold text-base uppercase font-sans leading-[18.2px] tracking-[-0.px]">
+            D1 University
           </span>
         </a>
         <nav
@@ -140,13 +148,23 @@ function Header() {
           className="hidden items-center gap-7 md:flex"
         >
           {links.map(([label, href]) => (
-            <a className="nav-link" href={href} key={href}>
+            <a
+              className="nav-link font-medium text-base leading-[19.2px] text-[#DEDEDE] hover:text-brand"
+              href={href}
+              key={href}
+            >
               {label}
             </a>
           ))}
         </nav>
-        <a href="#events" className="button button-red hidden sm:inline-flex">
-          Find your event <Arrow />
+        <a
+          href="#events"
+          className="bg-white rounded-lg p-1.5 text-sm font-semibold text-ink flex items-center gap-2"
+        >
+          Register
+          <span className="rounded-lg p-1.5 bg-brand flex items-center justify-center">
+            <ArrowUpRight className="w-3 h-3 text-white" />
+          </span>
         </a>
         <button
           id="menu-toggle"
@@ -630,6 +648,7 @@ function InquiryDialog({ inquiry, onClose }) {
 
 export default function App() {
   const [inquiry, setInquiry] = useState(null);
+  const [yearsPaused, setYearsPaused] = useState(false);
   return (
     <>
       <a href="#main" className="skip-link">
@@ -641,61 +660,80 @@ export default function App() {
           id="home"
           className="hero relative isolate overflow-hidden bg-ink text-white"
         >
-          <div className="hero-art" aria-hidden="true">
-            <div className="court" />
-            <span className="hero-art-number">D1</span>
-          </div>
-          <div className="container relative flex min-h-[640px] flex-col justify-between py-12 md:min-h-[720px] md:py-16">
-            <div className="flex justify-between gap-8">
+          <div className="hero-art" aria-hidden="true" />
+          <div className="hero-content container relative flex min-h-[640px] flex-col justify-between pt-[111px] md:min-h-[720px]">
+            <div className="hero-top flex justify-between gap-8">
               <div className="hero-enter">
-                <p className="eyebrow mb-5 text-neutral-300">
-                  Your next level starts here
-                </p>
-                <h1 className="max-w-xl font-display text-6xl leading-[0.94] uppercase sm:text-8xl">
-                  The ultimate
+                <h1 className="max-w-xl font-display text-[64px] leading-[50px] uppercase text-white">
+                  The PATHWAY TO
                   <br />
-                  collegiate
-                  <br />
-                  <span className="text-brand">game plan.</span>
+                  COLLEGIATE DANCE
                 </h1>
-                <p className="mt-6 max-w-xs text-sm leading-6 text-neutral-300">
-                  For the athletes. The dreamers. The next up.
-                  <br />
-                  Build a future that goes beyond the game.
-                </p>
-                <a className="button button-red mt-7" href="#events">
-                  Explore experiences <Arrow />
-                </a>
               </div>
-              <div className="hidden self-start border-l border-brand pl-4 text-xs uppercase leading-6 tracking-widest lg:block">
-                Built for athletes.
-                <br />
-                Made for what’s next.
-                <br />
-                <span className="text-brand">No sidelines. All in.</span>
+              <div className="hero-event bg-[#CA0F2F33] p-5 flex items-start gap-6 max-w-113.25 w-full h-fit backdrop-blur-2xl">
+                <img
+                  src={eventPoster}
+                  className="max-w-44 w-full h-auto"
+                  alt="d1"
+                />
+                <div>
+                  <div>
+                    <p className="text-white uppercase text-lg">NEXT EVENT</p>
+                    <p className="text-white uppercase text-lg">
+                      SUMMER CONVENTION
+                    </p>
+                  </div>
+                  <div className="flex flex-col gap-2 my-4">
+                    <div className="flex items-center gap-2.5">
+                      <CalendarDays className="w-3.5 h-3.5 text-brand" />
+                      <p className="text-white text-sm">JUL 31-AUG 2, 2026</p>
+                    </div>
+                    <div className="flex items-center gap-2.5">
+                      <MapPin className="w-3.5 h-3.5 text-brand" />
+                      <p className="text-white text-sm">PARAMUS, NJ</p>
+                    </div>
+                  </div>
+                  <a
+                    href="#"
+                    className="underline font-semibold text-sm flex items-center gap-2.5"
+                  >
+                    Register <MoveUpRight className="w-3 h-3 text-white" />
+                  </a>
+                </div>
               </div>
             </div>
-            <div className="hero-enter mt-16 flex items-end justify-between gap-4">
-              <span className="font-display text-[clamp(3rem,9vw,8rem)] leading-[0.8] uppercase tracking-tight">
-                D1 University<span className="text-brand">.</span>
+            <div className="hero-brand hero-enter mt-16 flex items-center gap-8 pb-9">
+              <img
+                src={heroLogo}
+                className="w-[198px] h-[167px] "
+                alt="logo large"
+              />
+              <span className="font-sans font-bold text-[142px] leading-[162px] uppercase tracking-[-2.67px]">
+                D1 University
               </span>
-              <a
-                href="#about"
-                className="mb-1 hidden size-11 items-center justify-center rounded-full border border-white/40 sm:flex"
-                aria-label="Discover D1 University"
-              >
-                <Arrow className="rotate-90" />
-              </a>
             </div>
           </div>
         </section>
-        <div className="flex flex-wrap justify-around gap-x-6 gap-y-2 bg-brand px-4 py-3 text-[10px] font-bold uppercase tracking-[0.2em] text-white">
-          <span>Prepare for more</span>
-          <span aria-hidden="true">✦</span>
-          <span>Find your people</span>
-          <span aria-hidden="true">✦</span>
-          <span>Own your future</span>
-        </div>
+        <button
+          type="button"
+          className={`years-marquee block w-full overflow-hidden bg-brand py-3 text-white ${yearsPaused ? 'is-paused' : ''}`}
+          aria-label="Pause 4 more years marquee"
+          aria-pressed={yearsPaused}
+          onClick={() => setYearsPaused(!yearsPaused)}
+        >
+          <span className="years-track" aria-hidden="true">
+            {[0, 1].map(copy => (
+              <span className="years-group" key={copy}>
+                {Array.from({ length: 8 }, (_, i) => (
+                  <span className="years-item" key={i}>
+                    <span className="font-display text-[32px] uppercase font-normal tracking-[0.2em]">4 MORE YEARS</span>
+                    <img src={star} alt="" />
+                  </span>
+                ))}
+              </span>
+            ))}
+          </span>
+        </button>
         <section id="about" className="section bg-ink text-white">
           <div className="container">
             <Reveal className="section-heading">
