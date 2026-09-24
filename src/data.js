@@ -1,15 +1,22 @@
 // Sample content: replace with approved copy, logos, images, and real event details.
 export const programs = [
-  { title: 'Build your foundation.', label: 'The preparation', text: 'Develop the habits, skills, and confidence to take your game further.' },
-  { title: 'Find your people.', label: 'The community', text: 'Connect with athletes and coaches who share your ambition.' },
-  { title: 'Own your next chapter.', label: 'The opportunity', text: 'Get the guidance and exposure to turn potential into a plan.' },
+  { title: 'TRAIN', text: 'Train with college level faculty who know what it takes to excel at the next level.' },
+  { title: 'BE SEEN', text: 'Perform in front of collegiate coaches and recruiters who are watching for talent like yours. ' },
+  { title: 'GET RECRUITED', text: 'Connect directly with programs at our on-site recruiting tables ready to build their rosters.' },
 ];
 export const stats = [
-  { value: 2500, suffix: '+', label: 'Athletes connected' },
-  { value: 120, suffix: '+', label: 'College programs' },
-  { value: 35, suffix: '+', label: 'States represented' },
+  { value: 25, suffix: '+', label: 'COLLEGE PARTNERS' },
+  { value: 100 , suffix: '+', label: 'DANCERS TRAINED' },
+  { value: 15, suffix: '+', label: 'CITIES ON TOUR' },
 ];
-export const partners = ['NORTHWEST', 'STATE', 'WESTERN', 'UNIVERSITY', 'CENTRAL', 'TECH'];
+export const partners = [
+  { src: new URL('./assets/m1.png', import.meta.url).href, alt: 'Partner logo 1' },
+  { src: new URL('./assets/m2.png', import.meta.url).href, alt: 'Partner logo 2' },
+  { src: new URL('./assets/m3.png', import.meta.url).href, alt: 'Partner logo 3' },
+  { src: new URL('./assets/m4.png', import.meta.url).href, alt: 'Partner logo 4' },
+  { src: new URL('./assets/m5.png', import.meta.url).href, alt: 'Partner logo 5' },
+  { src: new URL('./assets/m6.png', import.meta.url).href, alt: 'Partner logo 6' },
+];
 export const events = [
   { id: 'prep', title: 'The Prep', tag: 'Build your foundation', number: '01', description: 'A focused development experience. Get practical coaching, recruiting guidance, and a clear plan for what comes next.', details: ['Skills & development', 'Recruiting workshops', 'Athlete mindset'] },
   { id: 'jump', title: 'The Jump Off', tag: 'Take the next step', number: '02', description: 'Put your preparation into practice. Meet your community, compete with purpose, and learn from experienced coaches.', details: ['Competitive sessions', 'Coach connections', 'Personal feedback'] },

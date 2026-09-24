@@ -5,7 +5,21 @@ import eventPoster from "./assets/d1.png";
 import heroLogo from "./assets/logo-l.png";
 import star from "./assets/star.png";
 import { programs, stats, partners, events, testimonials, faqs } from "./data";
-import { ArrowUpRight, CalendarDays, MapPin, MoveUpRight } from "lucide-react";
+import {
+  ArrowUpRight,
+  CalendarDays,
+  MapPin,
+  MoveUpRight,
+  Dumbbell,
+  Eye,
+  Trophy,
+  Building2,
+  ContactRound,
+  Zap,
+} from "lucide-react";
+
+const programIcons = [Dumbbell, Eye, Trophy];
+const statIcons = [Building2, ContactRound, Zap];
 
 const Arrow = ({ className = "" }) => (
   <svg
@@ -58,7 +72,7 @@ function Reveal({ children, className = "" }) {
   );
 }
 
-function Counter({ value, suffix, label }) {
+function Counter({ value, suffix, label, icon: Icon }) {
   const ref = useRef(null);
   const [count, setCount] = useState(0);
   const reduced = useReducedMotion();
@@ -89,18 +103,24 @@ function Counter({ value, suffix, label }) {
     };
   }, [value, reduced]);
   return (
-    <div ref={ref} className="border-t border-white/20 pt-5">
-      <div className="font-display text-5xl sm:text-6xl" aria-hidden="true">
-        {count.toLocaleString("en-US")}
-        <span className="text-brand">{suffix}</span>
+    <div ref={ref} className="flex items-center gap-3 pt-5">
+      {Icon && <Icon className="size-8 shrink-0 text-white" strokeWidth={1.5} aria-hidden="true" />}
+      <div>
+        <div
+          className="font-display text-5xl sm:text-3xl text-brand"
+          aria-hidden="true"
+        >
+          {count.toLocaleString("en-US")}
+          {suffix}
+        </div>
+        <span className="sr-only">
+          {value.toLocaleString("en-US")}
+          {suffix}
+        </span>
+        <p className="text-xs uppercase tracking-widest text-neutral-400">
+          {label}
+        </p>
       </div>
-      <span className="sr-only">
-        {value.toLocaleString("en-US")}
-        {suffix}
-      </span>
-      <p className="mt-2 text-xs uppercase tracking-widest text-neutral-400">
-        {label}
-      </p>
     </div>
   );
 }
@@ -210,35 +230,25 @@ function Header() {
 }
 
 function Marquee() {
-  const [paused, setPaused] = useState(false);
   return (
-    <div className="mt-16 border-t border-white/10 pt-8">
+    <div className="partners-section mt-20 border-white/10 pt-8">
       <div className="mb-7 flex items-center justify-between gap-4">
-        <p className="eyebrow text-neutral-500">
-          A bigger world of possibility
+        <p className="font-display text-[40px] text-center w-full text-brand ">
+          Trusted Partners
         </p>
-        <button
-          className="text-xs text-neutral-400 hover:text-white"
-          aria-pressed={paused}
-          onClick={() => setPaused(!paused)}
-        >
-          {paused ? "Play" : "Pause"} logos{" "}
-          <span aria-hidden="true">{paused ? "▶" : "Ⅱ"}</span>
-        </button>
       </div>
-      <div
-        className={`marquee ${paused ? "is-paused" : ""}`}
-        aria-label="Example university partners"
-      >
+      <div className="marquee" aria-label="Example university partners">
         <div className="marquee-track">
           {[0, 1].map((copy) => (
             <div className="marquee-group" key={copy} aria-hidden={copy === 1}>
-              {partners.map((partner, i) => (
-                <div className="partner" key={partner}>
-                  <span className="partner-symbol">
-                    {["✦", "W", "◇", "U", "C", "T"][i]}
-                  </span>
-                  <span>{partner}</span>
+              {partners.map((partner) => (
+                <div className="partner" key={partner.src}>
+                  <img
+                    src={partner.src}
+                    alt={partner.alt}
+                    className="partner-logo"
+                    loading="lazy"
+                  />
                 </div>
               ))}
             </div>
@@ -716,17 +726,19 @@ export default function App() {
         </section>
         <button
           type="button"
-          className={`years-marquee block w-full overflow-hidden bg-brand py-3 text-white ${yearsPaused ? 'is-paused' : ''}`}
+          className={`years-marquee block w-full overflow-hidden bg-brand py-3 text-white ${yearsPaused ? "is-paused" : ""}`}
           aria-label="Pause 4 more years marquee"
           aria-pressed={yearsPaused}
           onClick={() => setYearsPaused(!yearsPaused)}
         >
           <span className="years-track" aria-hidden="true">
-            {[0, 1].map(copy => (
+            {[0, 1].map((copy) => (
               <span className="years-group" key={copy}>
                 {Array.from({ length: 8 }, (_, i) => (
                   <span className="years-item" key={i}>
-                    <span className="font-display text-[32px] uppercase font-normal tracking-[0.2em]">4 MORE YEARS</span>
+                    <span className="font-display text-[32px] uppercase font-normal tracking-[0.2em]">
+                      4 MORE YEARS
+                    </span>
                     <img src={star} alt="" />
                   </span>
                 ))}
@@ -736,33 +748,46 @@ export default function App() {
         </button>
         <section id="about" className="section bg-ink text-white">
           <div className="container">
-            <Reveal className="section-heading">
-              <div>
-                <p className="eyebrow text-brand">This is your starting line</p>
+            <Reveal>
+              <div className="about-intro flex items-start justify-between">
                 <h2>
                   More than
-                  <br />a convention.
+                  <br />a Dance <br /> convention
+                  <span className="text-brand">.</span>
                 </h2>
+
+                <p className="section-intro text-neutral-400 text-lg">
+                  From collegiate partnerships to athlete success stories D1
+                  University is building the next gen of dancers
+                  <a
+                    href="#events"
+                    className="text-sm font-semibold text-white flex items-center gap-2"
+                  >
+                    Register
+                    <ArrowUpRight className="w-3 h-3 text-brand" />
+                  </a>
+                </p>
               </div>
-              <p className="section-intro text-neutral-400">
-                A community built around your potential. We bring together the
-                preparation, people, and opportunities to help you take the next
-                step.
-              </p>
             </Reveal>
-            <div className="mt-10 grid gap-4 md:grid-cols-3">
+            <div className="program-grid mt-10 grid gap-4 md:grid-cols-3" tabIndex={0} aria-label="Program cards, scroll horizontally on mobile">
               {programs.map((program, i) => (
                 <Reveal key={program.title}>
                   <article className="program-card group">
-                    <span className="font-display text-6xl text-white/20 transition-colors group-hover:text-brand">
+                    <span className="program-icon" aria-hidden="true">
+                      {(() => {
+                        const Icon = programIcons[i % programIcons.length];
+                        return <Icon size={18} strokeWidth={1.5} />;
+                      })()}
+                    </span>
+                    <span className="program-number font-display">
                       0{i + 1}
                     </span>
-                    <div className="relative mt-12">
+                    <div className="program-copy relative mt-6">
                       <p className="eyebrow text-brand">{program.label}</p>
                       <h3 className="font-display mt-2 text-3xl uppercase">
                         {program.title}
                       </h3>
-                      <p className="mt-3 text-sm leading-6 text-neutral-400">
+                      <p className="mt-3 text-sm leading-6 text-neutral-300">
                         {program.text}
                       </p>
                     </div>
@@ -770,14 +795,19 @@ export default function App() {
                 </Reveal>
               ))}
             </div>
-            <div className="mt-12 grid gap-8 sm:grid-cols-3">
-              {stats.map((stat) => (
-                <Counter key={stat.label} {...stat} />
+            <div className="program-followup mt-3 flex items-center gap-3 sm:gap-5">
+              <hr className="min-w-0 flex-1 border-0 border-t border-white/20" />
+              <span className="shrink-0 text-[10px] leading-6 text-[#777777] sm:text-base">See where our dancers landed</span>
+              <a href="#hof" className="inline-flex shrink-0 items-center gap-2 text-[9px] font-medium uppercase text-brand hover:text-white sm:gap-4 sm:text-xs">
+                <Arrow className="size-4 sm:size-5" /> Hall of Fame
+              </a>
+            </div>
+            <div className="about-stats mt-2 grid gap-8 sm:grid-cols-3">
+              {stats.map((stat, i) => (
+                <Counter key={stat.label} {...stat} icon={statIcons[i % statIcons.length]} />
               ))}
             </div>
-            <p className="mt-5 text-[10px] uppercase tracking-widest text-neutral-600">
-              Illustrative statistics and partner placeholders
-            </p>
+
             <Marquee />
           </div>
         </section>
